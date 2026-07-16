@@ -1,0 +1,1374 @@
+{
+	"info": {
+		"_postman_id": "jellyfin-api-collection",
+		"name": "Jellyfin API",
+		"description": "Jellyfin Media Server REST API Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8096",
+			"description": "Jellyfin server base URL"
+		},
+		{
+			"key": "apiKey",
+			"value": "",
+			"description": "API key for authentication"
+		},
+		{
+			"key": "userId",
+			"value": "",
+			"description": "User ID"
+		},
+		{
+			"key": "sessionId",
+			"value": "",
+			"description": "Session ID"
+		}
+	],
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Authenticate User by Name",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"Username\": \"admin\",\n  \"Pw\": \"password\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Users/AuthenticateByName",
+							"host": ["{{baseUrl}}"],
+							"path": ["Users", "AuthenticateByName"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Authenticate with Quick Connect",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"Secret\": \"quick_connect_secret\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Users/AuthenticateWithQuickConnect",
+							"host": ["{{baseUrl}}"],
+							"path": ["Users", "AuthenticateWithQuickConnect"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Forgot Password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"EnteredUsername\": \"username\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Users/ForgotPassword",
+							"host": ["{{baseUrl}}"],
+							"path": ["Users", "ForgotPassword"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Auth Providers",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Emby-Token",
+								"value": "{{apiKey}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/Auth/Providers",
+							"host": ["{{baseUrl}}"],
+							"path": ["Auth", "Providers"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Password Reset Providers",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Emby-Token",
+								"value": "{{apiKey}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/Auth/PasswordResetProviders",
+							"host": ["{{baseUrl}}"],
+							"path": ["Auth", "PasswordResetProviders"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Get Users",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Emby-Token",
+								"value": "{{apiKey}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/Users?isHidden=false&isDisabled=false",
+							"host": ["{{baseUrl}}"],
+							"path": ["Users"],
+							"query": [
+								{
+									"key": "isHidden",
+									"value": "false"
+								},
+								{
+									"key": "isDisabled",
+									"value": "false"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Public Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/Users/Public",
+							"host": ["{{baseUrl}}"],
+							"path": ["Users", "Public"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Emby-Token",
+								"value": "{{apiKey}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/Users/{{userId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["Users", "{{userId}}"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Current User",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Emby-Token",
+								"value": "{{apiKey}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/Users/Me",
+							"host": ["{{baseUrl}}"],
+							"path": ["Users", "Me"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Emby-Token",
+								"value": "{{apiKey}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"Name\": \"newuser\",\n  \"Password\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Users/New",
+							"host": ["{{baseUrl}}"],
+							"path": ["Users", "New"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Emby-Token",
+								"value": "{{apiKey}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"Name\": \"updatedname\",\n  \"Configuration\": {\n    \"AudioLanguagePreference\": \"\",\n    \"SubtitleLanguagePreference\": \"\",\n    \"DisplayMissingEpisodes\": true\n  }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Users?userId={{userId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["Users"],
+							"query": [
+								{
+									"key": "userId",
+									"value": "{{userId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User Password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Emby-Token",
+								"value": "{{apiKey}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"CurrentPw\": \"oldpassword\",\n  \"NewPw\": \"newpassword\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Users/Password?userId={{userId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["Users", "Password"],
+							"query": [
+								{
+									"key": "userId",
+									"value": "{{userId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User Policy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Emby-Token",
+								"value": "{{apiKey}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"IsAdministrator\": false,\n  \"IsDisabled\": false,\n  \"IsHidden\": false,\n  \"BlockedTags\": [],\n  \"AllowedTags\": []\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Users/{{userId}}/Policy",
+							"host": ["{{baseUrl}}"],
+							"path": ["Users", "{{userId}}", "Policy"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-Emby-Token",
+								"value": "{{apiKey}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/Users/{{userId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["Users", "{{userId}}"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Library & Items",
+			"item": [
+				{
+					"name": "Get Items",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Emby-Token",
+								"value": "{{apiKey}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/Items?userId={{userId}}&limit=20&fields=Genres,Studios,People",
+							"host": ["{{baseUrl}}"],
+							"path": ["Items"],
+							"query": [
+								{
+									"key": "userId",
+									"value": "{{userId}}"
+								},
+								{
+									"key": "limit",
+									"value": "20"
+								},
+								{
+									"key": "fields",
+									"value": "Genres,Studios,People"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Item by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Emby-Token",
+								"value": "{{apiKey}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/Items/{{itemId}}?userId={{userId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["Items", "{{itemId}}"],
+							"query": [
+								{
+									"key": "userId",
+									"value": "{{userId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Item File",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Emby-Token",
+								"value": "{{apiKey}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/Items/{{itemId}}/File",
+							"host": ["{{baseUrl}}"],
+							"path": ["Items", "{{itemId}}", "File"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Item",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-Emby-Token",
+								"value": "{{apiKey}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/Items/{{itemId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["Items", "{{itemId}}"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Item Counts",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Emby-Token",
+								"value": "{{apiKey}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/Items/Counts?userId={{userId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["Items", "Counts"],
+							"query": [
+								{
+									"key": "userId",
+									"value": "{{userId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Item Ancestors",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Emby-Token",
+								"value": "{{apiKey}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/Items/{{itemId}}/Ancestors?userId={{userId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["Items", "{{itemId}}", "Ancestors"],
+							"query": [
+								{
+									"key": "userId",
+									"value": "{{userId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Similar Items",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Emby-Token",
+								"value": "{{apiKey}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/Items/{{itemId}}/Similar?userId={{userId}}&limit=5",
+							"host": ["{{baseUrl}}"],
+							"path": ["Items", "{{itemId}}", "Similar"],
+							"query": [
+								{
+									"key": "userId",
+									"value": "{{userId}}"
+								},
+								{
+									"key": "limit",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Theme Songs",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Emby-Token",
+								"value": "{{apiKey}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/Items/{{itemId}}/ThemeSongs?userId={{userId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["Items", "{{itemId}}", "ThemeSongs"],
+							"query": [
+								{
+									"key": "userId",
+									"value": "{{userId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Download Item",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Emby-Token",
+								"value": "{{apiKey}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/Items/{{itemId}}/Download",
+							"host": ["{{baseUrl}}"],
+							"path": ["Items", "{{itemId}}", "Download"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Library Management",
+			"item": [
+				{
+					"name": "Refresh Library",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Emby-Token",
+								"value": "{{apiKey}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/Library/Refresh",
+							"host": ["{{baseUrl}}"],
+							"path": ["Library", "Refresh"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Media Folders",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Emby-Token",
+								"value": "{{apiKey}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/Library/MediaFolders",
+							"host": ["{{baseUrl}}"],
+							"path": ["Library", "MediaFolders"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Physical Paths",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Emby-Token",
+								"value": "{{apiKey}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/Library/PhysicalPaths",
+							"host": ["{{baseUrl}}"],
+							"path": ["Library", "PhysicalPaths"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Library Options",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Emby-Token",
+								"value": "{{apiKey}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/Libraries/AvailableOptions",
+							"host": ["{{baseUrl}}"],
+							"path": ["Libraries", "AvailableOptions"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Report Updated Media",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Emby-Token",
+								"value": "{{apiKey}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"Updates\": [\n    {\n      \"Path\": \"/path/to/media/file.mkv\"\n    }\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Library/Media/Updated",
+							"host": ["{{baseUrl}}"],
+							"path": ["Library", "Media", "Updated"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Playlists",
+			"item": [
+				{
+					"name": "Create Playlist",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Emby-Token",
+								"value": "{{apiKey}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"Name\": \"My Playlist\",\n  \"Ids\": [\"item_id_1\", \"item_id_2\"],\n  \"UserId\": \"{{userId}}\",\n  \"MediaType\": \"Video\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Playlists",
+							"host": ["{{baseUrl}}"],
+							"path": ["Playlists"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Playlist",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Emby-Token",
+								"value": "{{apiKey}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/Playlists/{{playlistId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["Playlists", "{{playlistId}}"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Playlist",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Emby-Token",
+								"value": "{{apiKey}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"Name\": \"Updated Playlist\",\n  \"Ids\": [\"item_id_1\", \"item_id_2\", \"item_id_3\"]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Playlists/{{playlistId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["Playlists", "{{playlistId}}"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Playlist Items",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Emby-Token",
+								"value": "{{apiKey}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/Playlists/{{playlistId}}/Items?userId={{userId}}&limit=20",
+							"host": ["{{baseUrl}}"],
+							"path": ["Playlists", "{{playlistId}}", "Items"],
+							"query": [
+								{
+									"key": "userId",
+									"value": "{{userId}}"
+								},
+								{
+									"key": "limit",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Items to Playlist",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Emby-Token",
+								"value": "{{apiKey}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/Playlists/{{playlistId}}/Items?ids=item_id_3,item_id_4",
+							"host": ["{{baseUrl}}"],
+							"path": ["Playlists", "{{playlistId}}", "Items"],
+							"query": [
+								{
+									"key": "ids",
+									"value": "item_id_3,item_id_4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Move Playlist Item",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Emby-Token",
+								"value": "{{apiKey}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/Playlists/{{playlistId}}/Items/{{itemId}}/Move/0",
+							"host": ["{{baseUrl}}"],
+							"path": ["Playlists", "{{playlistId}}", "Items", "{{itemId}}", "Move", "0"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Items from Playlist",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-Emby-Token",
+								"value": "{{apiKey}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/Playlists/{{playlistId}}/Items?entryIds=item_id_1",
+							"host": ["{{baseUrl}}"],
+							"path": ["Playlists", "{{playlistId}}", "Items"],
+							"query": [
+								{
+									"key": "entryIds",
+									"value": "item_id_1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Playlist Users",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Emby-Token",
+								"value": "{{apiKey}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/Playlists/{{playlistId}}/Users",
+							"host": ["{{baseUrl}}"],
+							"path": ["Playlists", "{{playlistId}}", "Users"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Playlist User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Emby-Token",
+								"value": "{{apiKey}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"CanEdit\": true\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Playlists/{{playlistId}}/Users/{{userId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["Playlists", "{{playlistId}}", "Users", "{{userId}}"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove User from Playlist",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-Emby-Token",
+								"value": "{{apiKey}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/Playlists/{{playlistId}}/Users/{{userId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["Playlists", "{{playlistId}}", "Users", "{{userId}}"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sessions",
+			"item": [
+				{
+					"name": "Get Sessions",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Emby-Token",
+								"value": "{{apiKey}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/Sessions",
+							"host": ["{{baseUrl}}"],
+							"path": ["Sessions"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Play Item on Session",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Emby-Token",
+								"value": "{{apiKey}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/Sessions/{{sessionId}}/Playing?playCommand=PlayNow&itemIds=item_id_1",
+							"host": ["{{baseUrl}}"],
+							"path": ["Sessions", "{{sessionId}}", "Playing"],
+							"query": [
+								{
+									"key": "playCommand",
+									"value": "PlayNow"
+								},
+								{
+									"key": "itemIds",
+									"value": "item_id_1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Send Playstate Command",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Emby-Token",
+								"value": "{{apiKey}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/Sessions/{{sessionId}}/Playing/Pause",
+							"host": ["{{baseUrl}}"],
+							"path": ["Sessions", "{{sessionId}}", "Playing", "Pause"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Send System Command",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Emby-Token",
+								"value": "{{apiKey}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/Sessions/{{sessionId}}/System/Shutdown",
+							"host": ["{{baseUrl}}"],
+							"path": ["Sessions", "{{sessionId}}", "System", "Shutdown"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Send General Command",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Emby-Token",
+								"value": "{{apiKey}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/Sessions/{{sessionId}}/Command/ToggleFullscreen",
+							"host": ["{{baseUrl}}"],
+							"path": ["Sessions", "{{sessionId}}", "Command", "ToggleFullscreen"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Send Message",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Emby-Token",
+								"value": "{{apiKey}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"Header\": \"Notification\",\n  \"Text\": \"Hello from Postman\",\n  \"TimeoutMs\": 5000\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Sessions/{{sessionId}}/Message",
+							"host": ["{{baseUrl}}"],
+							"path": ["Sessions", "{{sessionId}}", "Message"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add User to Session",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Emby-Token",
+								"value": "{{apiKey}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/Sessions/{{sessionId}}/User/{{userId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["Sessions", "{{sessionId}}", "User", "{{userId}}"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout Session",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Emby-Token",
+								"value": "{{apiKey}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/Sessions/Logout",
+							"host": ["{{baseUrl}}"],
+							"path": ["Sessions", "Logout"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Configuration",
+			"item": [
+				{
+					"name": "Get Configuration",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Emby-Token",
+								"value": "{{apiKey}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/System/Configuration",
+							"host": ["{{baseUrl}}"],
+							"path": ["System", "Configuration"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Configuration",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Emby-Token",
+								"value": "{{apiKey}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"UICulture\": \"en-US\",\n  \"MetadataCountryCode\": \"US\",\n  \"PreferredMetadataLanguage\": \"en\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/System/Configuration",
+							"host": ["{{baseUrl}}"],
+							"path": ["System", "Configuration"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Named Configuration",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Emby-Token",
+								"value": "{{apiKey}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/System/Configuration/branding",
+							"host": ["{{baseUrl}}"],
+							"path": ["System", "Configuration", "branding"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Branding Configuration",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Emby-Token",
+								"value": "{{apiKey}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"LoginDisclaimer\": \"Welcome to Jellyfin\",\n  \"CustomCss\": \"\",\n  \"SplashscreenEnabled\": true\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/System/Configuration/Branding",
+							"host": ["{{baseUrl}}"],
+							"path": ["System", "Configuration", "Branding"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Default Metadata Options",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Emby-Token",
+								"value": "{{apiKey}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/System/Configuration/MetadataOptions/Default",
+							"host": ["{{baseUrl}}"],
+							"path": ["System", "Configuration", "MetadataOptions", "Default"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Movies",
+			"item": [
+				{
+					"name": "Get Movie Recommendations",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Emby-Token",
+								"value": "{{apiKey}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/Movies/Recommendations?userId={{userId}}&categoryLimit=5&itemLimit=8",
+							"host": ["{{baseUrl}}"],
+							"path": ["Movies", "Recommendations"],
+							"query": [
+								{
+									"key": "userId",
+									"value": "{{userId}}"
+								},
+								{
+									"key": "categoryLimit",
+									"value": "5"
+								},
+								{
+									"key": "itemLimit",
+									"value": "8"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Search",
+			"item": [
+				{
+					"name": "Search Items",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Emby-Token",
+								"value": "{{apiKey}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/Items?userId={{userId}}&searchTerm=movie&limit=10",
+							"host": ["{{baseUrl}}"],
+							"path": ["Items"],
+							"query": [
+								{
+									"key": "userId",
+									"value": "{{userId}}"
+								},
+								{
+									"key": "searchTerm",
+									"value": "movie"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Activity Log",
+			"item": [
+				{
+					"name": "Get Activity Log",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Emby-Token",
+								"value": "{{apiKey}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/System/ActivityLog?startIndex=0&limit=50",
+							"host": ["{{baseUrl}}"],
+							"path": ["System", "ActivityLog"],
+							"query": [
+								{
+									"key": "startIndex",
+									"value": "0"
+								},
+								{
+									"key": "limit",
+									"value": "50"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "System",
+			"item": [
+				{
+					"name": "Get System Info",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Emby-Token",
+								"value": "{{apiKey}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/System/Info",
+							"host": ["{{baseUrl}}"],
+							"path": ["System", "Info"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Public System Info",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/System/Info/Public",
+							"host": ["{{baseUrl}}"],
+							"path": ["System", "Info", "Public"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Server Time",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/System/Time",
+							"host": ["{{baseUrl}}"],
+							"path": ["System", "Time"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Restart Server",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Emby-Token",
+								"value": "{{apiKey}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/System/Restart",
+							"host": ["{{baseUrl}}"],
+							"path": ["System", "Restart"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Shutdown Server",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Emby-Token",
+								"value": "{{apiKey}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/System/Shutdown",
+							"host": ["{{baseUrl}}"],
+							"path": ["System", "Shutdown"]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
